@@ -1,5 +1,5 @@
-import networkx as nx
 import queue
+import networkx as nx
 # Performs the Structural Observability Test.
 def SO(A,C):
     A = (np.where(A!=0,1,A))
@@ -42,14 +42,14 @@ def rank_test(A,origin_nodes):
         return True
     else:
         return False
-# Performs the maximum_matching test.
+#Performs the maximum_matching test.
 def maximum_matching(A):
     num_state_nodes = len(A)/2
     G =  nx.from_numpy_matrix(np.matrix(A))
     max_matching = nx.algorithms.maximal_matching(G)
     max_matching_size = len(max_matching)
     return max_matching,max_matching_size
-# Performs the mapping into a bippartite graph.
+#Performs the mapping into a bippartite graph.
 def mapping_bipartite(A):
     A = A.tolist()
     num_state_nodes = len(A)
@@ -59,7 +59,7 @@ def mapping_bipartite(A):
         A[i].extend(save_values)
         A.append([0]*2*num_state_nodes)
     return A
-# Performs the structural controllability test.
+#Performs the structural controllability test.
 def SC(A,B):
     A = np.transpose(np.where(A!=0,1,A))
     B = np.where(B!=0,1,B)
@@ -88,14 +88,49 @@ def sensor_nodes(C):
 # Get the minimum number of driver nodes.
 def MDNS(A):
     A = np.transpose(np.where(A!=0,1,A))
-    max_matching,rank = maximum_matching(A)
+    bipartite_graph = mapping_bipartite(A)
+    max_matching,rank = maximum_matching(bipartite_graph)
+    print(max_matching)
     number_of_nodes_to_control = len(A)-rank
     max_matching_list = list(max_matching)
     not_matched = []
     matched = []
     for i in range(0,rank):
-        not_matched.append(maximal_matching_list[i][0])
-        matched.append(maximal_matching_list[i][1])
-    true_not_matched = actualmatched(matched,not_matched,len(A))
+        not_matched.append(max_matching_list[i][0])
+        matched.append(max_matching_list[i][1])
+    true_not_matched = actual_not_matched(matched,not_matched,len(A))
     return true_not_matched,number_of_nodes_to_control
-
+# Get the actual not matched nodes of the system.
+def actual_not_matched(matched,not_matched,num_of_states):
+    matched = [x - num_of_states for x in matched]
+    actual_not_matched = []
+    for x in not_matched:
+        if not (x in matched):
+            actual_not_matched.append(x)
+    return actual_not_matched
+def control_profile(A):
+    A = np.transpose(np.where(A!=0,1,A))
+    num_of_states = len(A)
+    bipartite_graph = mapping_bipartite(A)
+    max_matching,rank = maximum_matching(bipartite_graph)
+    n_source =0
+    n_sink = 0
+    n_external_dilation =0
+    n_internal_dilation =0
+    for edge in max_matching:
+        if sum(A[:,edge[0]])==0:
+            n_source = n_source+1
+        if sum(A[edge[1]-num_of_states,:])==0:
+            n_sink = n_sink +1
+    n_external_dilation = max(0,n_sink-n_source)
+    n_internal_dilation = num_of_states-n_external_dilation-n_source
+    return n_source/num_of_states,n_external_dilation/num_of_states,n_internal_dilation/num_of_states
+def degree(A):
+    A = np.transpose(np.where(A!=0,1,A))
+    num_of_states = len(A)
+    degree_in = []
+    degree_out = []
+    for i in range(0,num_of_states):
+            degree_in.append(sum(A[i,:]))
+            degree_out.append(sum(A[:,i]))
+    return degree_in,degree_out
