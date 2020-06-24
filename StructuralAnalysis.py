@@ -1,9 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[2]:
-
-
 import networkx as nx
 import queue
 # Performs the Structural Observability Test.
