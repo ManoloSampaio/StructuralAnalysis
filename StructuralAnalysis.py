@@ -1,5 +1,6 @@
 import queue
 import networkx as nx
+import numpy as np
 # Performs the Structural Observability Test.
 def SO(A,C):
     A = (np.where(A!=0,1,A))
@@ -22,9 +23,9 @@ def isolated_node_test(A,origin_nodes):
         while queue_of_nodes.empty()==False:
             row=queue_of_nodes.queue[0]
             for i in range(0,len(A[row][:])):
-                if A[row][i]==1 and (i in queue_of_nodes.queue)==0 and A[i][i]!=-1:
+                if A[row][i]==1 and (i in queue_of_nodes.queue)==0 and A[i][i]!=2:
                     queue_of_nodes.put(i)
-            A[row][row]=-1
+            A[row][row]=2
             visited_by_origin_node[(queue_of_nodes.get())]=1
         if sum(visited_by_origin_node)==number_of_state_nodes:
             return True
@@ -42,10 +43,10 @@ def rank_test(A,origin_nodes):
         return True
     else:
         return False
-#Performs the maximum_matching test.
-def maximum_matching(A):
-    num_state_nodes = len(A)/2
-    G =  nx.from_numpy_matrix(np.matrix(A))
+#Performs the maximum_matching test, using a bipartite graph.
+def maximum_matching(A_bipartite):
+    num_state_nodes = len(A_bipartite)/2
+    G =  nx.from_numpy_matrix(np.matrix(A_bipartite))
     max_matching = nx.algorithms.maximal_matching(G)
     max_matching_size = len(max_matching)
     return max_matching,max_matching_size
