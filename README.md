@@ -39,14 +39,13 @@ This module performs structural analysis of linear time invariant system such as
   B = B_three_tank = np.matrix([[6.4935,0],[0,0],[0,6.4935]])
   sys = StructuralSystem(A,B)
   ```
-  So you can get the matrix A and B: `sys.A`,`sys.B`. You can use this function with the other matrices of the state space model, and also with only one matrix.
-  using `sys.show_A_stru()` we get a spy plot of the matrix A.
+  So you can get the matrices A and B using `sys.A`, `sys.B`. See the documentation to check the different ways to instantiate the system. Using `sys.show_A_stru()` we get a spy plot of the matrix A.
  ## Strong Structural controllability: 
   ## ssc.py
-  It's model that cotains the 2 tests to verify strong structural controllability, these two test were based on the algorithm presented here [[3]](#3) and also in the [SALS toolbox](https://www.mathworks.com/matlabcentral/fileexchange/72648-sals-toolbox) functions ssc1, ssc2.
-  1. `ssc1(A,B)` performs the first test.
-  2. `ssc2(A,B)` performs the second test.
-  3. `ssc(A,B)` use the two privious test to check the strong structural controllability of the system.
+  It's a module that contains the 2 tests to verify strong structural controllability. These two tests were based on the algorithm presented by [[3]](#3) and also in the functions ssc1, ssc2 of the MATLAB toolbox: [SALS toolbox](https://www.mathworks.com/matlabcentral/fileexchange/72648-sals-toolbox).
+  1. `ssc1(A,B)`: performs the first test.
+  2. `ssc2(A,B)`: performs the second test.
+  3. `ssc(A,B)`:  use the two previous tests to check the strong structural controllability of the system.
 
 # Bibliography:
 <a id="1">[1]</a> **Liu, Yang-Yu & Barabasi, Albert-Laszlo. (2016). Control principles of complex systems. Reviews of Modern Physics. 88. 10.1103/RevModPhys.88.035006.**<br>
