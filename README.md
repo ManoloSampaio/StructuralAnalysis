@@ -31,7 +31,7 @@ This module performs structural analysis of linear time invariant system such as
   ## Shows the input-output degree for each node.
   [[1]](#1) Showed that there is a relation between the number of driver nodes and the input output degree of a node of the graph. So a simple function was 
   created to show the degree of each node. The function is `degree(A)`.
-
+## Structural version of the system:
   ## structuralsystem.py
   This class creates the structured version of the system based on the matrix A,B,C,D of the state space. For example
   ```python
@@ -41,7 +41,7 @@ This module performs structural analysis of linear time invariant system such as
   ```
   So you can get the matrix A and B: `sys.A`,`sys.B`. You can use this function with the other matrices of the state space model, and also with only one matrix.
   using `sys.show_A_stru()` we get a spy plot of the matrix A.
-  
+ ## Strong Structural controllability: 
   ## ssc.py
   It's model that cotains the 2 tests to verify strong structural controllability, these two test were based on the algorithm presented here [[3]](#3) and also in the [SALS toolbox](https://www.mathworks.com/matlabcentral/fileexchange/72648-sals-toolbox) functions ssc1, ssc2.
   1. `ssc1(A,B)` performs the first test.
