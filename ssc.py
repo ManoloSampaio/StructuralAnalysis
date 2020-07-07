@@ -161,8 +161,8 @@ def create_M_bar(A,B):
     with allmost all values equal to A, but the following are different:
         A_{ii}=0 -> A_bar_{ii}=1
     Args:
-        A (np.matrix): [description]
-        B (np.matrix): [description]
+        A (np.matrix): The structured version of the state matrix. 
+        B (np.matrix): The structured version of the input matrix.
 
     Returns:
         M_bar = [A_bar B]
