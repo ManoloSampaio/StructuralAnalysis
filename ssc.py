@@ -125,24 +125,23 @@ def calculatev(submatrix):
     min_col = index_and_value[0] # The Key is the column withe the minimum number of nonzero values.
     v = index_and_value[1]   # Is the number of elements in this column.
     return v,min_col
-
 def calculatev_mod(submatrix,X):
-     """
-    Summary:
-    Calculates the number of nonzero elements in the column with the minimum number of nonzero elements.
-    This column should no be a null vector.
-    The modification is that if the j column of the matrix A of 
-    the system contains a nonzero element, we going to increase by 1 the number of the nonzero element of the submatrix.
+    """
+        Summary:
+        Calculates the number of nonzero elements in the column with the minimum number of nonzero elements.
+        This column should no be a null vector.
+        The modification is that if the j column of the matrix A of 
+        the system contains a nonzero element, we going to increase by 1 the number of the nonzero element of the submatrix.
     
-    Args:
+        Args:
     
-    submatrix(np.matrix)= The submatrix of M.
-    X(np.matrix)= X is a diagonal matrix, with the propriety: x_ii!=0 <=> a_ii!=0.
+        submatrix(np.matrix)= The submatrix of M.
+        X(np.matrix)= X is a diagonal matrix, with the propriety: x_ii!=0 <=> a_ii!=0.
     
-    Returns:
+        Returns:
     
-    v: The minimum number of elements in the column with the minimum number of nonzero values.
-    min_col: The column with the minimum number of nonzero elements.
+        v: The minimum number of elements in the column with the minimum number of nonzero values.
+        min_col: The column with the minimum number of nonzero elements.
     """
     dict_aux = {}
     for j in range(len(submatrix[0,:])):
