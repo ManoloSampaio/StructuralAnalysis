@@ -24,7 +24,7 @@ This module performs the structural analysis of linear time invariant system suc
   2. Internal dilatons:  arises due the nuances of the network, such as diferent edges from the same node. **Ni** 
   3. Number of sources:  the number of source nodes of the system. **Ns**
   
-  The sum of these three element is equal to the number of the minum driver nodes selection **Nc**. The control profile is a vector (Ns/Nc,Ns/Nc,Ne/Nc). The      
+  The sum of these three element is equal to the minimum number of driver nodes **Nc**. The control profile is a vector (Ns/Nc,Ns/Nc,Ne/Nc). The      
   function ``control_profile(A)`` returns this vector.
   All this section is based on the work of [[2]](#2).
     
